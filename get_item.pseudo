@@ -1,0 +1,58 @@
+# Project One Get-Item Pseudocode
+
+START game
+	
+	# Define rooms and their properties
+	SET rooms TO dictionary with room names as keys
+		SET values as nested dictionaries with keys for:
+		- description: has value of a string describing the room
+		- item: has value of a string describing the item in the room, where applicable
+		- directions: has value of nested dictionary with keys for available movement directions and values of string for room names the direction leads to
+
+	# Define starting room and end condition
+	SET game over boolean TO FALSE
+	SET current room TO starting room
+	SET inventory TO empty list
+
+	# Main game loop
+	WHILE game over boolean IS FALSE THEN
+		
+		# Check if end condition is met
+		IF current room IS final room THEN
+			OUTPUT final room description and outcome message
+			SET game over boolean TO TRUE
+
+		ELSE THEN
+			# Display current room information and prompt for player command
+			OUTPUT current room description and item, where applicable
+			OUTPUT inventory information
+			OUTPUT prompt for player command
+			INPUT player command
+			SET player command TO lowercase version of player command
+			SPLIT command words TO list of words in player command
+
+			# Check is command is valid and execute appropriate action
+			IF command words has length of 2 THEN
+				IF first word in command words IS go THEN
+					# This is handled in move pseudocode
+			
+				ELSE IF first word in command words IS get THEN
+					IF current room item IS NOT none THEN
+						IF second word in command words IS item in current room THEN
+							APPEND item to inventory
+							OUTPUT alert player that item was added to inventory
+							REPLACE item in current room with none
+
+						ELSE THEN
+							OUTPUT alert player that item was invalid
+
+					ELSE THEN
+						OUTPUT alert player that command was invalid
+
+				ELSE THEN
+					OUTPUT alert player that command was invalid
+
+			ELSE THEN
+				OUTPUT alert player that command was invalid
+
+END game
